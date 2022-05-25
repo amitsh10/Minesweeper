@@ -1,0 +1,19 @@
+body {
+  background-color: rgb(198, 213, 219);
+}
+
+.board h1 {
+  text-align: center;
+}
+
+table {
+  margin: auto;
+}
+
+.cell {
+  background-color: lightcoral;
+}
+
+.hidden-cell {
+  background-color: aqua;
+}
