@@ -8,6 +8,13 @@ body {
 
 table {
   margin: auto;
+  margin-top: 50px;
+}
+
+table td {
+  height: 35px;
+  width: 35px;
+  text-align: center;
 }
 
 .cell {
@@ -16,4 +23,41 @@ table {
 
 .hidden-cell {
   background-color: aqua;
+}
+
+.buttons button {
+  background-color: orange;
+  height: 50px;
+  width: 100px;
+}
+
+.buttons {
+  text-align: center;
+}
+
+.play {
+  text-align: center;
+  margin-top: 50px;
+  font-size: xx-large;
+}
+
+.timer {
+  background-color: blanchedalmond;
+  padding: 15px;
+  margin-left: 10px;
+  text-align: center;
+}
+
+.lives {
+  background-color: rgb(69, 64, 64);
+  padding: 15px;
+  margin-right: 10px;
+}
+
+.amit {
+  border: 5px solid;
+  background-color: coral;
+  text-align: center;
+  margin-top: 100px;
+  font-family: Georgia, "Times New Roman", Times, serif;
 }
