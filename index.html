@@ -15,10 +15,13 @@
         <button onclick="setDifficulty(4, 2)">Beginner</button>
         <button onclick="setDifficulty(8, 12)">Medium</button>
         <button onclick="setDifficulty(12, 30)">Expert</button>
-        <span class="timer">Time</span>
+        <span class="timer"></span>
       </div>
-      <div onclick="initGame()" class="play">😀</div>
+      <div onclick="initGame()" class="play"></div>
       <table>
+        <button class="safe-button" onclick="safeClick(this)">
+          Safe Clicks: 3
+        </button>
         <tbody></tbody>
       </table>
     </div>
