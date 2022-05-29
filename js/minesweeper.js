@@ -1,12 +1,10 @@
 "use strict";
 
 const MINE = "💣";
-const NEIGHBORS = ["", "1️⃣", "2️⃣", "3️⃣", "4️⃣", "5️⃣", "6️⃣", "7️⃣", "8️⃣"];
+const NEIGHBORS = ["", 1, 2, 3, 4, 5, 6, 7, 8];
 const FLAG = "🚩";
 const LIVE = "💗";
-const EXPLOSION = new Audio("audio/explosion.wav");
 
-var gLives;
 var gStartTime;
 var gTimerInterval;
 var gBoard;
@@ -18,9 +16,11 @@ var gGame = {
   isOn: true,
   isStarted: false,
   minesLocated: false,
+  lives: 3,
   shownCount: 0,
   markedCount: 0,
   secsPassed: 0,
+  safeClicks: 3,
 };
 
 function initGame() {
@@ -30,12 +30,14 @@ function initGame() {
   gGame.shownCount = 0;
   gGame.markedCount = 0;
   gGame.secsPassed = 0;
-  gLives = 3;
+  gGame.lives = 3;
+  gGame.safeClicks = 3;
   gBoard = createBoard();
   renderPlayBtn("gameOn");
-  renderLives(gLives);
+  renderLives(gGame.lives);
   renderBoard(gBoard);
   renderTimerText();
+  renderSafeClickBtn();
   clearInterval(gTimerInterval);
 }
 
@@ -66,13 +68,13 @@ function renderBoard(board) {
       }
       if (board[i][j].isMarked) {
         value = FLAG;
-        strHTML += `<td onclick="cellClicked(${i}, ${j})" onmousedown="cellMarked(event, ${i}, ${j})" class="cell">${value}</td>`;
+        strHTML += `<td data-i="${i}" data-j="${j}" onclick="cellClicked(${i}, ${j})" onmousedown="cellMarked(event, ${i}, ${j})" class="cell">${value}</td>`;
       } else if (board[i][j].isShown) {
         var neighborsCount = board[i][j].minesAroundCount;
         value = board[i][j].isMine ? MINE : NEIGHBORS[neighborsCount];
-        strHTML += `<td onclick="cellClicked(${i}, ${j})" onmousedown="cellMarked(event, ${i}, ${j})" class="cell">${value}</td>`;
+        strHTML += `<td data-i="${i}" data-j="${j}" onclick="cellClicked(${i}, ${j})" onmousedown="cellMarked(event, ${i}, ${j})" class="cell">${value}</td>`;
       } else {
-        strHTML += `<td onclick="cellClicked(${i}, ${j})" onmousedown="cellMarked(event, ${i}, ${j})" class="hidden-cell">X</td>`;
+        strHTML += `<td data-i="${i}" data-j="${j}" onclick="cellClicked(${i}, ${j})" onmousedown="cellMarked(event, ${i}, ${j})" class="hidden-cell"></td>`;
       }
     }
   }
@@ -103,14 +105,15 @@ function cellClicked(i, j) {
     renderPlayBtn("gameOn");
   }
 
-  if (gBoard[i][j].isMine) {
+  if (gBoard[i][j].isMine && !gBoard[i][j].isShown) {
+    const EXPLOSION = new Audio("audio/explosion.wav");
     EXPLOSION.play();
-    gLives--;
+    gGame.lives--;
     // change to lose emoji
     renderPlayBtn("lose");
-    renderLives(gLives);
+    renderLives(gGame.lives);
     gBoard[i][j].isShown = true;
-    if (gLives === 0) {
+    if (gGame.lives === 0) {
       gameOver();
     }
   }
@@ -219,7 +222,7 @@ function updateTime() {
   var diff = now - gStartTime;
   var secondsPast = diff / 1000;
   var elTimer = document.querySelector(".timer");
-  elTimer.innerText = secondsPast.toFixed(3);
+  elTimer.innerText = `Timer: ${secondsPast.toFixed(3)}`;
 }
 
 function renderTimerText() {
@@ -229,7 +232,7 @@ function renderTimerText() {
 
 function renderLives(lives) {
   var elLives = document.querySelector(".lives");
-  elLives.innerText = "";
+  elLives.innerText = "Lives:";
   for (var i = 0; i < lives; i++) {
     elLives.innerText += LIVE;
   }

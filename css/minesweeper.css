@@ -1,5 +1,6 @@
 body {
   background-color: rgb(198, 213, 219);
+  /* background-color: rgb(134, 171, 180); */
 }
 
 .board h1 {
@@ -9,20 +10,26 @@ body {
 table {
   margin: auto;
   margin-top: 50px;
+  border: 2px solid rgb(101, 101, 151);
 }
 
 table td {
-  height: 35px;
-  width: 35px;
+  height: 22px;
+  width: 22px;
   text-align: center;
+  border: 1px solid;
+  /* background-color: rgba(106, 188, 188, 0.584); */
+  background-color: rgb(245, 9, 131);
+  border: 1px solid rgba(79, 92, 71, 0.925);
+  font-family: Arial, Helvetica, sans-serif;
+  color: rgb(255, 255, 255);
 }
 
-.cell {
-  background-color: lightcoral;
+.hidden-cell:hover {
+  background-color: aliceblue;
 }
-
 .hidden-cell {
-  background-color: aqua;
+  background-color: rgb(62, 62, 129);
 }
 
 .buttons button {
@@ -42,22 +49,34 @@ table td {
 }
 
 .timer {
-  background-color: blanchedalmond;
   padding: 15px;
   margin-left: 10px;
   text-align: center;
+  font-family: Arial, Helvetica, sans-serif;
 }
 
 .lives {
-  background-color: rgb(69, 64, 64);
+  font-family: Arial, Helvetica, sans-serif;
   padding: 15px;
   margin-right: 10px;
 }
 
 .amit {
-  border: 5px solid;
+  display: inline-block;
+  border: 1px solid;
   background-color: coral;
   text-align: center;
+  padding: 10px;
+  margin-left: 510px;
   margin-top: 100px;
   font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+.board h1 {
+  color: rgb(56, 53, 53);
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.safe-click {
+  background-color: lightyellow;
 }
